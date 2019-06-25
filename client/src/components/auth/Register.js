@@ -3,6 +3,10 @@ import { Link, Redirect } from 'react-router-dom'
 import axios from './axios';
 
 const Register = () => {
+    useEffect(() => {
+        /** set navbar-active-tab store state on first load **/
+    },[])
+    
     const [fireRedirect, setFireRedirect]= useState(false)
     const registerFormEle = {
         name : '',

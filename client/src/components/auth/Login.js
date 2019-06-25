@@ -3,6 +3,10 @@ import { Link, Redirect } from 'react-router-dom'
 import axios from './axios'
 
 const Login = () => {
+    useEffect(() => {
+        /** set navbar-active-tab store state on first load **/
+    },[])
+
     const [fireRedirect, setFireRedirect]= useState(false)
     const loginFormEle = {
         email : '',
