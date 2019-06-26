@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { activate_LOGIN } from '../../actions/activeTab'
-import axios from './axios'
+import { login } from '../../actions/auth'
+import { activate_NavbarLink } from '../../actions/activeTab'
+import { NavLink_LOGIN } from '../../actions/types'
 
-const Login = (props) => {
+const Login = ({Alert, activate_NavbarLink, login}) => {
 
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
-        props.activate_LOGIN()
+        activate_NavbarLink(NavLink_LOGIN)
     },[])
 
+    const displayBlock = {
+        display:'block'
+    }
+
+    /** Component States **/
     const [fireRedirect, setFireRedirect]= useState(false)
     const loginFormEle = {
         email : '',
@@ -19,32 +25,20 @@ const Login = (props) => {
     const [formData, setFormData] = useState(loginFormEle)
     const { email, pass } = formData
 
-    const authenticate_user = async () => {
-        const submitBtn = document.getElementsByName("submitBtn")[0]
-        const displayAlert = document.getElementsByName("invalidCreds")[0]
-        const user_obj = {
-            email,
-            password: pass
-        }
-        submitBtn.value = "Logging In ..."
-
-        // make api call to authenticate user.
-        axios.login_user(user_obj).then((res) => {
-            displayAlert.style.display = "none"
-            submitBtn.value = "Login Successful.."
-            setFireRedirect(true)
-        }).catch((err) => {
-            displayAlert.style.display = "block"
-            submitBtn.value = "Login"
-        })
-    }
+    /** Functions **/
     const onInputChange = (e) => {
         setFormData({ ...formData, [e.target.name] : e.target.value })
     }
     const onFormSubmit = (e) => {
         e.preventDefault()
-        authenticate_user()
+        const user_obj = {
+            email,
+            password: pass
+        }
+        // call action
+        login(user_obj)
     }
+
     return (
         <>
             <section className="container">
@@ -54,9 +48,12 @@ const Login = (props) => {
                     </h1>
                     <p className="lead text-center">Log into your account to manage the tasks.</p>
                     <form onSubmit={onFormSubmit} className="form">            
-                        <div className="alert alert-danger" name="invalidCreds">
-                            Invalid credentials ! Please try again.
-                        </div>
+                        {
+                            Alert ? <div className="alert alert-danger" name="invalidCreds" style={displayBlock}>
+                                        Invalid credentials ! Please try again.
+                                    </div> 
+                                    : ''
+                        }
                         
                         <div className="form-item">
                             <i className="material-icons">email</i>
@@ -81,4 +78,14 @@ const Login = (props) => {
     )
 }
 
-export default connect(null, {activate_LOGIN})(Login)
+const mapStateToProps = (state) => {
+    return {
+        Alert: state.Alert
+    }
+}
+
+export default connect(mapStateToProps, 
+    {
+        activate_NavbarLink,
+        login
+    })(Login)

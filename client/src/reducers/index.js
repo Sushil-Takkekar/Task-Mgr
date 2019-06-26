@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux'
-import Navbar_activeTab from './activeTab'
+import Alert from './alert'
+import Active_NavLink from './activeTab'
+import Auth from './auth'
 
 const rootReducer = combineReducers({
-    Navbar_activeTab
+    Alert,
+    Active_NavLink,
+    Auth
 })
 
 export default rootReducer

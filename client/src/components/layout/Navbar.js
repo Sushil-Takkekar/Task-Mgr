@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ Navbar_activeTab }) => {
+const Navbar = ({ Active_NavLink }) => {
     return (
         <>
             <nav className="navbar bg-dark">
@@ -13,9 +13,9 @@ const Navbar = ({ Navbar_activeTab }) => {
                     </Link>
                 </h1>
                 <ul>
-                    <li><Link to="/dashboard" className={(Navbar_activeTab === 'dashboard') ? 'active-link' : ''}>Dashboard</Link></li>
-                    <li><Link to="/register" className={(Navbar_activeTab === 'register') ? 'active-link' : ''}>Register</Link></li>
-                    <li><Link to="/login" className={(Navbar_activeTab === 'login') ? 'active-link' : ''}>Login</Link></li>
+                    <li><Link to="/dashboard" className={(Active_NavLink === 'dashboard') ? 'active-link' : ''}>Dashboard</Link></li>
+                    <li><Link to="/register" className={(Active_NavLink === 'register') ? 'active-link' : ''}>Register</Link></li>
+                    <li><Link to="/login" className={(Active_NavLink === 'login') ? 'active-link' : ''}>Login</Link></li>
                 </ul>
             </nav>
         </>
@@ -25,7 +25,7 @@ const Navbar = ({ Navbar_activeTab }) => {
 /** Map the store state to component props **/
 const mapStateToProps = (state) => {
     return {
-        Navbar_activeTab : (state.Navbar_activeTab).toLowerCase()
+        Active_NavLink : (state.Active_NavLink).toLowerCase()
     }
 }
 

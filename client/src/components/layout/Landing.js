@@ -1,13 +1,13 @@
 import React,{ useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { activate_NONE } from '../../actions/activeTab'
+import { activate_NavbarLink } from '../../actions/activeTab'
+import { NavLink_NONE } from '../../actions/types'
 
-
-const Landing = (props) => {
+const Landing = ({activate_NavbarLink}) => {
 
     useEffect(() => {
-        props.activate_NONE()
+        activate_NavbarLink(NavLink_NONE)
     })
     return (
         <>
@@ -27,4 +27,4 @@ const Landing = (props) => {
     )
 }
 
-export default connect(null, {activate_NONE})(Landing)
+export default connect(null, {activate_NavbarLink})(Landing)

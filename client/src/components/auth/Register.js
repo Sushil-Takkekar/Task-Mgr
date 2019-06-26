@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { activate_REGISTER } from '../../actions/activeTab'
+import { activate_NavbarLink } from '../../actions/activeTab'
+import { NavLink_REGISTER } from '../../actions/types'
 import axios from './axios';
 
 const Register = (props) => {
 
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
-        props.activate_REGISTER()
+        props.activate_NavbarLink(NavLink_REGISTER)
     },[])
     
     const [fireRedirect, setFireRedirect]= useState(false)
@@ -94,4 +95,4 @@ const Register = (props) => {
     )
 }
 
-export default connect(null, { activate_REGISTER })(Register)
+export default connect(null, { activate_NavbarLink })(Register)
