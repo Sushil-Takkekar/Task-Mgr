@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { activate_LOGIN } from '../../actions/activeTab'
 import axios from './axios'
 
-const Login = () => {
+const Login = (props) => {
+
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
+        props.activate_LOGIN()
     },[])
 
     const [fireRedirect, setFireRedirect]= useState(false)
@@ -77,4 +81,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default connect(null, {activate_LOGIN})(Login)

@@ -1,14 +1,8 @@
 import React,{ useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
-    /** Active Navbar Tab **/
-    const Navbar_activeTab = 'Dashboard'  // replace value with 'useSelector(state => state.Navbar_activeTab);'
-
-    useEffect(() => {
-       console.log('Navbar re-renderd !'); 
-    })
-
+const Navbar = ({ Navbar_activeTab }) => {
     return (
         <>
             <nav className="navbar bg-dark">
@@ -19,13 +13,20 @@ const Navbar = () => {
                     </Link>
                 </h1>
                 <ul>
-                    <li><Link to="/dashboard" className={(Navbar_activeTab === 'Dashboard') ? 'active-link' : ''}>Dashboard</Link></li>
-                    <li><Link to="/register" className={(Navbar_activeTab === 'Register') ? 'active-link' : ''}>Register</Link></li>
-                    <li><Link to="/login" className={(Navbar_activeTab === 'Login') ? 'active-link' : ''}>Login</Link></li>
+                    <li><Link to="/dashboard" className={(Navbar_activeTab === 'dashboard') ? 'active-link' : ''}>Dashboard</Link></li>
+                    <li><Link to="/register" className={(Navbar_activeTab === 'register') ? 'active-link' : ''}>Register</Link></li>
+                    <li><Link to="/login" className={(Navbar_activeTab === 'login') ? 'active-link' : ''}>Login</Link></li>
                 </ul>
             </nav>
         </>
     )
 }
 
-export default Navbar;
+/** Map the store state to component props **/
+const mapStateToProps = (state) => {
+    return {
+        Navbar_activeTab : (state.Navbar_activeTab).toLowerCase()
+    }
+}
+
+export default connect(mapStateToProps,null)(Navbar)

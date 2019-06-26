@@ -1,7 +1,14 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { activate_NONE } from '../../actions/activeTab'
 
-const Landing = () => {
+
+const Landing = (props) => {
+
+    useEffect(() => {
+        props.activate_NONE()
+    })
     return (
         <>
             <section className="landing">
@@ -20,4 +27,4 @@ const Landing = () => {
     )
 }
 
-export default Landing;
+export default connect(null, {activate_NONE})(Landing)
