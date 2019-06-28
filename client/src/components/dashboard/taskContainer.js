@@ -1,43 +1,25 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import TaskItem from './taskItem'
 
-const TaskContainer = () => {
+const TaskContainer = ({ Tasks }) => {
     return (
         <>
             <div className="tasks">
                 <div className="heading">
                     All
                 </div>
-                <div className="task-item">
-                    <div className="task-col status">
-                        <input type="checkbox" />
-                    </div>
-                    <div className="task-col title">
-                        Enhance PS script.Create PS script function for FT. Add it to existing script
-                    </div>
-                    <div className="task-col description">
-                        Try FT config on local machine. Create PS script function for FT. Add it to existing script.
-                    </div>
-                    <div className="task-col due-date">
-                        12 Jun
-                    </div>
-                    <i className="material-icons edit-btn">edit</i>
-                </div>
-
-                <div className="task-item">
-                    <div className="task-col status">
-                        <input type="checkbox" />
-                    </div>
-                    <div className="task-col title">
-                        Submit timecard
-                    </div>
-                    <div className="task-col description">
-                        Go to oracle ebiz site and submit the timecard for this week.
-                    </div>
-                    <div className="task-col due-date">
-                        7 Jun
-                    </div>
-                    <i className="material-icons edit-btn">edit</i>
-                </div>
+                {
+                    Tasks.map((item, index) => {
+                        const task = {
+                            title: 'Not available in backend',
+                            desc: item.description,
+                            due_date: item.createdAt,
+                            status: item.completed
+                        }
+                        return <TaskItem key={item._id} task={task} />
+                    })
+                }
             </div>
 
             {/* <!-- add task button --> */}
@@ -50,4 +32,12 @@ const TaskContainer = () => {
     )
 }
 
-export default TaskContainer
+const mapStateToProps = (state) => {
+    return {
+        Tasks : state.Dashboard.tasks
+    }
+}
+
+export default connect(mapStateToProps,{
+
+})(TaskContainer)

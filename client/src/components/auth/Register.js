@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { register } from '../../actions/auth'
 import { activate_NavbarLink } from '../../actions/activeTab'
 import { NavLink_REGISTER } from '../../actions/types'
 import axios from './axios';
 
-const Register = (props) => {
+const Register = ({ activate_NavbarLink, register, Alert }) => {
 
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
-        props.activate_NavbarLink(NavLink_REGISTER)
+        activate_NavbarLink(NavLink_REGISTER)
     },[])
     
+    const displayBlock = {
+        display:'block'
+    }
+
+    /** Component States **/
     const [fireRedirect, setFireRedirect]= useState(false)
     const registerFormEle = {
         name : '',
@@ -22,35 +28,14 @@ const Register = (props) => {
     const [formData, setFormData] = useState(registerFormEle)
     const {name, email, pass1, pass2} = formData
 
+    /** Functions **/
     const onInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value})
     }
-    const register_user = () => {
-        const submitBtn = document.getElementsByName("submitBtn")[0]
-        const displayAlert = document.getElementsByName("invalidEntries")[0]
-        const user_obj = {
-            name,
-            email,
-            password : pass1
-        }
-
-        submitBtn.value = "Loading.."
-        // make api call to create new user
-        axios.create_user(user_obj).then((res) => {
-            console.log(JSON.stringify(res))
-            setFireRedirect(true)  // redirect to next page
-        }).catch((err) => {
-            console.log(JSON.stringify(err))
-            displayAlert.style.display = "block"
-            submitBtn.value = "Register"
-        })
-    }
     const onFormSubmit = (e) => {
         e.preventDefault()
-        if(pass1 !== pass2) {
-            alert('Passwords do not match !')
-        }
-        register_user()
+        /** call action **/
+        register(formData)
     }
     return (
         <>
@@ -61,9 +46,11 @@ const Register = (props) => {
                     </h1>
                     <p className="lead text-center">Create new account</p>
                     <form onSubmit={onFormSubmit} className="form">
-                        <div className="alert alert-danger" name="invalidEntries">
-                            Invalid entries !
-                        </div>
+                        {Alert ?
+                            <div className="alert alert-danger" name="invalidEntries" style={displayBlock}>
+                                Invalid entries !
+                            </div> : ''
+                        }
                         
                         <div className="form-item">
                             <i className="material-icons">account_circle</i>
@@ -95,4 +82,10 @@ const Register = (props) => {
     )
 }
 
-export default connect(null, { activate_NavbarLink })(Register)
+const mapStateToProps = (state) => {
+    return {
+        Alert : state.Alert
+    }
+}
+
+export default connect(mapStateToProps, { activate_NavbarLink, register })(Register)

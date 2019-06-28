@@ -2,16 +2,22 @@ import React, { useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { activate_NavbarLink } from '../../actions/activeTab'
-import { NavLink_Dashboard } from '../../actions/types'
+import { dashboardReq } from '../../actions/dashboard'
 import Sidebar from './sidebar'
 import TaskContainer from './taskContainer'
+import { 
+    NavLink_Dashboard, LIST_TASK,
+    Tasks_ALL, Tasks_COMPLETED,
+    Tasks_TODAY, Tasks_WEEKLY
+} from '../../actions/types'
 
-const Dashboard = ({ activate_NavbarLink }) => {
+const Dashboard = ({ activate_NavbarLink, dashboardReq }) => {
 
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
         // activate_DASHBOARD()
         activate_NavbarLink(NavLink_Dashboard)
+        dashboardReq(LIST_TASK)
     })
 
     return (
@@ -30,4 +36,7 @@ const Dashboard = ({ activate_NavbarLink }) => {
     )
 }
 
-export default connect(null, {activate_NavbarLink})(Dashboard)
+export default connect(null, {
+    activate_NavbarLink,
+    dashboardReq
+})(Dashboard)

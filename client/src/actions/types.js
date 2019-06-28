@@ -21,3 +21,21 @@ export const NavLink_NONE = '';
  */
 export const Login_SUCCESS = 'Login_SUCCESS'
 export const Login_FAIL = 'Login_FAIL'
+
+/**
+ * Register status 
+ */
+export const Register_SUCCESS = 'Register_SUCCESS'
+export const Register_FAIL = 'Register_FAIL'
+
+/**
+ * Dashboard requests 
+ */
+export const LIST_TASK = 'LIST_TASK'
+export const Tasks_ALL = 'Tasks_ALL'
+export const Tasks_TODAY = 'Tasks_TODAY'
+export const Tasks_WEEKLY = 'Tasks_WEEKLY'
+export const Tasks_COMPLETED = 'Tasks_COMPLETED'
+
+export const Bind_TASK = 'Bind_TASK'
+export const Bind_LIST = 'Bind_LIST'

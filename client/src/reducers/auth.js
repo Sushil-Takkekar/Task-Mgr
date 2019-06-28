@@ -1,4 +1,8 @@
-import { Login_SUCCESS, Login_FAIL } from '../actions/types'
+import { combineReducers } from  'redux'
+import { 
+    Login_SUCCESS, Login_FAIL,
+    Register_SUCCESS, Register_FAIL
+} from '../actions/types'
 
 /**
  * Auth state object will store following things
@@ -35,4 +39,20 @@ const login = (state = initialState, action) => {
     }
 }
 
-export default login
+const register = (state = initialState, action) => {
+    switch(action.type) {
+        case Register_SUCCESS:
+            return state
+        case Register_FAIL:
+            return state
+        default:
+            return state
+    }
+}
+
+const Auth = combineReducers({
+    login,
+    register
+})
+
+export default Auth

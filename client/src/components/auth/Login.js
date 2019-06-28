@@ -35,7 +35,7 @@ const Login = ({Alert, activate_NavbarLink, login}) => {
             email,
             password: pass
         }
-        // call action
+        /** call action **/
         login(user_obj)
     }
 

@@ -1,8 +1,12 @@
-import { login_user } from '../axios/user'
-import { Login_SUCCESS, Login_FAIL, Alert_SHOW, Alert_HIDE } from './types'
+import { login_user, create_user } from '../axios/user'
+import { 
+    Login_SUCCESS, Login_FAIL, 
+    Register_SUCCESS, Register_FAIL,
+    Alert_SHOW, Alert_HIDE 
+} from './types'
 
 /**
- * Login status action.
+ * Login action.
  * Set action based on API call response.
  */
 export const login = (user) => dispatch => {
@@ -24,4 +28,41 @@ export const login = (user) => dispatch => {
             type: Alert_SHOW
         })
     })
+}
+
+/**
+ * Register action.
+ * Set action based on API call response.
+ */
+export const register = (user) => dispatch => {
+    if(user.pass1 === user.pass2) {
+        const user_obj = {
+            name: user.name,
+            email: user.email,
+            password : user.pass1
+        }
+        create_user(user_obj).then((res) => {
+            dispatch({
+                type: Register_SUCCESS,
+                payload: user 
+            })
+            /** Hide Alert **/
+            dispatch({
+                type: Alert_HIDE
+            })
+        }).catch((err) => {
+            dispatch({
+                type: Register_FAIL, 
+            })
+            /** Show Alert **/
+            dispatch({
+                type: Alert_SHOW
+            })
+        })
+    }else {
+        /** Show Alert **/
+        dispatch({
+            type: Alert_SHOW
+        })
+    }
 }
