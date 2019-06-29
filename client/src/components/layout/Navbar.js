@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ Active_NavLink }) => {
+const Navbar = ({ Active_NavLink, isLoggedIn, user_data }) => {
     return (
         <>
             <nav className="navbar bg-dark">
@@ -12,11 +12,32 @@ const Navbar = ({ Active_NavLink }) => {
                         <span>Task Mgr</span>
                     </Link>
                 </h1>
-                <ul>
-                    <li><Link to="/dashboard" className={(Active_NavLink === 'dashboard') ? 'active-link' : ''}>Dashboard</Link></li>
-                    <li><Link to="/register" className={(Active_NavLink === 'register') ? 'active-link' : ''}>Register</Link></li>
-                    <li><Link to="/login" className={(Active_NavLink === 'login') ? 'active-link' : ''}>Login</Link></li>
-                </ul>
+                {
+                    isLoggedIn && user_data ? 
+                            <ul>
+                                <li><Link to="/dashboard" className={(Active_NavLink === 'dashboard') ? 'active-link' : ''}>Dashboard</Link></li>
+                                <li>
+                                    <span className="hide-sm">|</span>  {/* <!-- This is verticle separator--> */}
+                                    <Link to="/profile">
+                                        <i className="material-icons">account_circle</i>
+                                        <span className="hide-sm">Profile</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/logout">
+                                        <i className="material-icons">exit_to_app</i>
+                                        <span className="hide-sm">Logout</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                            :
+                            <ul>
+                                {/* <li><Link to="/dashboard" className={(Active_NavLink === 'dashboard') ? 'active-link' : ''}>Dashboard</Link></li> */}
+                                <li><Link to="/register" className={(Active_NavLink === 'register') ? 'active-link' : ''}>Register</Link></li>
+                                <li><Link to="/login" className={(Active_NavLink === 'login') ? 'active-link' : ''}>Login</Link></li>
+                            </ul>
+
+                }
             </nav>
         </>
     )
@@ -25,7 +46,9 @@ const Navbar = ({ Active_NavLink }) => {
 /** Map the store state to component props **/
 const mapStateToProps = (state) => {
     return {
-        Active_NavLink : (state.Active_NavLink).toLowerCase()
+        Active_NavLink : (state.Active_NavLink).toLowerCase(),
+        isLoggedIn: state.Auth.login.isLoggedIn,
+        user_data: state.Auth.login.user
     }
 }
 

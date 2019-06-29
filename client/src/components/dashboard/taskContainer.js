@@ -12,9 +12,9 @@ const TaskContainer = ({ Tasks }) => {
                 {
                     Tasks.map((item, index) => {
                         const task = {
-                            title: 'Not available in backend',
+                            title: item.title,
                             desc: item.description,
-                            due_date: item.createdAt,
+                            due_date: item.due_date,
                             status: item.completed
                         }
                         return <TaskItem key={item._id} task={task} />

@@ -82,7 +82,7 @@ const update_user = (id, updates) => {
         if(updates.password != undefined || updates.password.trim()!="") {
             // validate update details
             if(updates.password.toLowerCase().includes('password') || updates.password.length<8) {
-                reject('Warning: weak password !');
+                return reject('Warning: weak password !');
             }
             bcrypt.hash(updates.password, 7).then((pwd) => {
                 updates.password = pwd;
@@ -172,7 +172,7 @@ const login_user = (email, password) => {
             user.tokens.push({ token });
             const updated_user = await user_model_schema.findByIdAndUpdate(user._id , user, { new: true, runValidators: true});
             
-            resolve({ user:updated_user, login: true, token});
+            resolve({ user:updated_user, token});
         }catch(e) {
             reject(e);
         }
@@ -193,6 +193,48 @@ const logout_user = (user, token) => {
             reject(e);
         }
     });
+}
+
+// add list
+const add_list = (id, list) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const user = await user_model_schema.findById(id);
+            const pre_list = user.lists.filter((item) => item.title === list.title)
+            if(pre_list.length > 0) {
+                return reject({ Error: "List already exists!" })
+            }
+            user.lists.push({ title: list.title });
+            const updated_user = await user.save();
+            resolve(updated_user);
+        }catch(err) {
+            reject(err)
+        }
+    })
+}
+
+// update list count
+const update_list_count = (user_id, list_id, val) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const updated_list = await user_model_schema.findOneAndUpdate({ '_id': user_id, 'lists._id': list_id }, { $inc: { 'lists.$.count': val }}, {new: true} );
+            resolve(updated_list.lists.filter(item => item._id == list_id))
+        }catch(err) {
+            reject(err)
+        }
+    })
+}
+
+// get all lists
+const get_all_lists = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await user_model_schema.findOne({ _id:id }, { lists:1, _id:0 });
+            resolve(data.lists)
+        }catch(err) {
+            reject(err)
+        }
+    })
 }
 
 // Verify JWT auth token
@@ -229,7 +271,10 @@ module.exports = {
     delete_avatar,
     get_avatar,
     login_user,
-    logout_user
+    logout_user,
+    add_list,
+    update_list_count,
+    get_all_lists
 }
 
 /**

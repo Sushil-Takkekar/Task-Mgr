@@ -1,4 +1,6 @@
 import { getTasks } from '../axios/task'
+import { get_all_lists } from '../axios/user'
+
 import {
     LIST_TASK,
     Tasks_ALL, Tasks_TODAY,
@@ -9,6 +11,14 @@ import {
 export const dashboardReq = (req_type) => dispatch => {
     if(req_type === LIST_TASK) {
         /** make api call to get all the lists **/
+        get_all_lists().then((res) => {
+            dispatch({
+                type: Bind_LIST,
+                payload: res
+            })
+        }).catch((err) => {
+            // code this to redirect to home/login
+        })
 
         /** make api call to get all the tasks **/
         getTasks().then((res) => {

@@ -29,6 +29,11 @@ export const Register_SUCCESS = 'Register_SUCCESS'
 export const Register_FAIL = 'Register_FAIL'
 
 /**
+ * Logout user
+ */
+export const Logout_USER = 'Logout_USER'
+
+/**
  * Dashboard requests 
  */
 export const LIST_TASK = 'LIST_TASK'

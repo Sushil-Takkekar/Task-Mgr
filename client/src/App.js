@@ -5,6 +5,7 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import Logout from './components/auth/Logout';
 import Dashboard from './components/dashboard/dashboard';
 // Redux
 import { Provider } from 'react-redux';
@@ -20,6 +21,7 @@ function App() {
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
           <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/logout" exact component={Logout} />
         </Switch>
       </Router>
     </Provider>

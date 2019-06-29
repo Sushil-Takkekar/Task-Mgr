@@ -10,7 +10,7 @@ const formatDate = (dt) => {
     ];
     
     const date = new Date(dt)
-    const day = date.getDate();
+    const day = (date.getDate()<10 ? '0'+date.getDate() : date.getDate());  // if dat value is simgle digit, append 0 to it.
     const monthIndex = date.getMonth();
     const year = date.getFullYear();
     

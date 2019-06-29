@@ -1,6 +1,6 @@
 import { combineReducers } from  'redux'
 import { 
-    Login_SUCCESS, Login_FAIL,
+    Login_SUCCESS, Login_FAIL, Logout_USER,
     Register_SUCCESS, Register_FAIL
 } from '../actions/types'
 
@@ -9,15 +9,15 @@ import {
  */
 const initialState = {
     token: localStorage.getItem('token'),
-    isLoggedIn: false,
+    isLoggedIn: localStorage.getItem('active'),
     loading: true,
-    user: null
+    user: JSON.parse(localStorage.getItem('user'))
 }
 
 const login = (state = initialState, action) => {
     switch(action.type) {
         case Login_SUCCESS:
-            localStorage.setItem('token',action.payload.token)
+            setLocalStorage(true, action.payload)
             return {
                 ...state,
                 ...action.payload,
@@ -26,7 +26,7 @@ const login = (state = initialState, action) => {
                 loading: false,
             }
         case Login_FAIL:
-            localStorage.removeItem('token')
+            setLocalStorage(false)
             return {
                 ...state,
                 token: null,
@@ -47,6 +47,18 @@ const register = (state = initialState, action) => {
             return state
         default:
             return state
+    }
+}
+
+const setLocalStorage = (flag, data) => {
+    if(flag) {
+        localStorage.setItem('token',data.token)
+        localStorage.setItem('user',JSON.stringify(data.user))
+        localStorage.setItem('active',true)
+    }else {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        localStorage.removeItem('active')
     }
 }
 

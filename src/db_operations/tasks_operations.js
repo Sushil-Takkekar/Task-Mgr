@@ -1,9 +1,18 @@
 const task_schema = require('../models/task_model');
+const user = require('./users_operations')
 
 // create new task
 const create_task = (task) => {
     return new Promise((resolve, reject) => {
         new task_schema(task).save().then((data) => {
+            // increment list count if list is tagged
+            if(task.list) {
+                user.update_list_count(task.owner, task.list, 1).then((updated_list) => {
+                    return resolve({ data, updated_list})
+                }).catch(() => {
+                    return resolve(data);
+                })
+            }
             resolve(data);
         }).catch((err) => {
             reject(err);
@@ -12,16 +21,20 @@ const create_task = (task) => {
 }
 
 // get all tasks of a user
-const get_all_tasks = ({ owner, status, limit, skip, sortBy }) => {
+const get_all_tasks = ({ owner, list, status, limit, skip, sortBy }) => {
     return new Promise((resolve, reject) => {
         const filter = { owner };
         const sort = {};
+        if(list) {
+            filter.list = list;
+        }
         if(status) {
             filter.completed = status === "true";
         }
         if(sortBy) {
             sort[sortBy.split('_')[0]] = (sortBy.split('_')[1] === 'asc' ? 1:-1);   // set sorting criteria => Ex. sort: { createdAt : 1 }
         }
+
         task_schema.find(filter, null, { limit, skip, sort }).then((data) => {
             resolve(data);
         }).catch((err) => {

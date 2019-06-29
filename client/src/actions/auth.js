@@ -1,6 +1,6 @@
 import { login_user, create_user } from '../axios/user'
 import { 
-    Login_SUCCESS, Login_FAIL, 
+    Login_SUCCESS, Login_FAIL, Logout_USER,
     Register_SUCCESS, Register_FAIL,
     Alert_SHOW, Alert_HIDE 
 } from './types'
@@ -65,4 +65,10 @@ export const register = (user) => dispatch => {
             type: Alert_SHOW
         })
     }
+}
+
+export const logoutUser = () => dispatch => {
+    dispatch({
+        type: Login_FAIL
+    })
 }

@@ -111,4 +111,24 @@ router.get('/users/:id/avatar', async (req, res) => {
     }
 });
 
+// add list
+router.post('/users/list', auth, async (req, res) => {
+    try {
+        const data = await users.add_list(req.user._id, req.body);
+        res.status(200).send(data);
+    }catch(err) {
+        res.status(500).send(err);
+    }
+});
+
+// get all lists
+router.get('/users/lists', auth, async(req, res) => {
+    try {
+        const lists = await users.get_all_lists(req.user._id);
+        res.status(200).send(lists);
+    }catch(err) {
+        res.status(404).send(err)
+    }
+});
+
 module.exports = router;

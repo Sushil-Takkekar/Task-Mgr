@@ -1,8 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import SidebarTab from './sidebarTab'
 import SidebarListTab from './sidebarListTab'
 
-const Sidebar = () => {
+const Sidebar = ({ Lists }) => {
     /** get the tasks count for the tabs **/
     const tabs = [
         {
@@ -64,9 +65,9 @@ const Sidebar = () => {
                     <div className="list-items">
                         {/* Show Sidebar List tabs */}
                         {
-                            list_tabs.map((item) => {
+                            Lists.map((item) => {
                                 return (
-                                    <SidebarListTab key={item.id} item={item} />
+                                    <SidebarListTab key={item._id} item={item} />
                                 )
                             })
                         }
@@ -80,4 +81,12 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar
+const mapStateToProps = (state) => {
+    return {
+        Lists : state.Dashboard.lists
+    }
+}
+
+export default connect(mapStateToProps, {
+
+})(Sidebar)

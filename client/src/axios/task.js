@@ -8,14 +8,15 @@ const req_config = {
 }
 
 /** make api call to get tasks **/
-const getTasks = (sortBy = 'completed_asc', completed, skip = 0, limit = 10) => {
-    // set authentication token in header
+const getTasks = (sortBy = 'completed_asc', list, completed, skip = 0, limit = 10) => {
     return new Promise(async (resolve, reject) => {
+        // set authentication token in header
         setAuthToken()
         try {
             const tasks = await axios.get('/tasks', {
                 params: {
                     sortBy,
+                    list,
                     completed,
                     skip,
                     limit

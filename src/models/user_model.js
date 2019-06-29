@@ -10,6 +10,19 @@ const tokens_schema = new mongoose.Schema({
     }
 });
 
+// define schema to store lists
+const lists_schema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: false
+    },
+    count: {
+        type: Number,
+        required: false,
+        default: 0
+    }
+})
+
 // define schema
 const user_schema = new mongoose.Schema({
     name: {
@@ -49,6 +62,7 @@ const user_schema = new mongoose.Schema({
         }
     },
     tokens : [tokens_schema],
+    lists: [lists_schema],
     avatar : {
         type: Buffer
     }
@@ -61,6 +75,7 @@ user_schema.methods.toJSON = function() {
     const user = this.toObject();
     delete user.password;
     delete user.tokens;
+    delete user.lists;
     delete user.avatar;
     return user;
 }
@@ -71,7 +86,7 @@ user_schema.methods.toJSON = function() {
 // Generate JWT auth token
 user_schema.methods.generateAuthToken = async function() {
     const user = this;
-    const token = jwt.sign({ _id:user._id.toString(), email:user.email}, process.env.JWT_AUTH_SECRET, {expiresIn: '1 day'});
+    const token = jwt.sign({ _id:user._id.toString(), email:user.email}, process.env.JWT_AUTH_SECRET, {expiresIn: '1h'});
     return token;
 }
 

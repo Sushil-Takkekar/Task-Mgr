@@ -3,14 +3,29 @@ const validator = require('validator');
 
 // define schema
 const task_schema = new mongoose.Schema({
-    description: {
+    title: {
         type: String,
         trim: true,
         required: true
     },
+    description: {
+        type: String,
+        trim: true,
+        default: ''
+    },
     completed: {
         type: Boolean,
         default: false
+    },
+    due_date: {
+        type: Date,
+        default: Date.now()
+    },
+    completion_date: {
+        type: Date
+    },
+    list: {
+        type: mongoose.Schema.Types.ObjectId
     },
     owner : {
         type: mongoose.Schema.Types.ObjectId,

@@ -19,6 +19,7 @@ router.post('/tasks', auth, (req, res) => {
 router.get('/tasks', auth, (req, res) => {
     const params = {
         owner : req.user._id,
+        list : req.query.list,
         status : req.query.completed,
         limit : parseInt(req.query.limit), // used for pagination
         skip : parseInt(req.query.skip), // used for pagination
