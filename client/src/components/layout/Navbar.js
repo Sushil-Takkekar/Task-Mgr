@@ -46,7 +46,7 @@ const Navbar = ({ Active_NavLink, isLoggedIn, user_data }) => {
 /** Map the store state to component props **/
 const mapStateToProps = (state) => {
     return {
-        Active_NavLink : (state.Active_NavLink).toLowerCase(),
+        Active_NavLink : (state.Active_Link.Active_NavLink).toLowerCase(),
         isLoggedIn: state.Auth.login.isLoggedIn,
         user_data: state.Auth.login.user
     }

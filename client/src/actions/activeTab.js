@@ -7,3 +7,9 @@ export const activate_NavbarLink = (link_text) => dispatch => {
         type: link_text
     })
 }
+
+export const activate_SidebarLink = (link_text) => dispatch => {
+    dispatch({
+        type: link_text
+    })
+}

@@ -31,18 +31,6 @@ const Sidebar = ({ Lists }) => {
             task_count: 0  // this will come from db by applying filter
         }
     ]
-    const list_tabs = [
-        {
-            id: 'LT1',  // this will come from db. From store state
-            list_name: 'Lifestyle',
-            list_task_count: 1  // this will come from db by applying filter. Use 'useSelector(state => state.userData);'
-        },
-        {
-            id: 'LT2',  // this will come from db. From store state
-            list_name: 'Work',
-            list_task_count: 3  // this will come from db by applying filter. Use 'useSelector(state => state.userData);'
-        }
-    ]
 
     return (
         <>

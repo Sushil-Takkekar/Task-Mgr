@@ -5,7 +5,7 @@ export const Alert_SHOW = 'Alert_SHOW'
 export const Alert_HIDE = 'Alert_HIDE'
 
 /**
- * Active Tabs :
+ * Active Tabs : Navbar
  * These vars are used to pass the type of action during dispatch only.
  * It means dispatching a dynamic action
  */
@@ -15,6 +15,12 @@ export const NavLink_Dashboard = 'Dashboard';
 export const NavLink_PROFILE = 'PROFILE';
 export const NavLink_LOGOUT = 'LOGOUT';
 export const NavLink_NONE = '';
+
+/**
+ * Active Tabs : Sidebar (Dashboard)
+ * These vars are used to pass the type of action during dispatch.
+ */
+
 
 /**
  * Login status 

@@ -1,13 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { activate_SidebarLink } from '../../actions/activeTab'
 
-const SidebarListTab = ({item}) => {
+const SidebarListTab = ({item, Active_SideLink, activate_SidebarLink}) => {
     /** Active Sidebar Tab **/
-    const Sidebar_activeTab = 'All'  // replace value with 'useSelector(state => state.Sidebar_activeTab);'
-    const active = (Sidebar_activeTab === item.title) ? ' active' : ''
+    const active = (Active_SideLink === 'SideLink_'+item.title) ? ' active' : ''
+
+    const onTabClick = () => {
+        const actionType = 'SideLink_'+item.title
+        activate_SidebarLink(actionType)
+    }
 
     return (
         <>
-            <div className={"list-tab" + active}>
+            <div onClick={onTabClick} className={"list-tab" + active}>
                 <div className="title">
                     <i className="material-icons">menu</i>
                     {item.title}
@@ -18,4 +24,12 @@ const SidebarListTab = ({item}) => {
     )
 }
 
-export default SidebarListTab
+const mapStateToProps = (state) => {
+    return {
+        Active_SideLink : state.Active_Link.Active_SideLink
+    }
+}
+
+export default connect(mapStateToProps, {
+    activate_SidebarLink
+})(SidebarListTab)

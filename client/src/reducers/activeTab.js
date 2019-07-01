@@ -2,6 +2,7 @@
  * Set active tab for Navbar
  * Options : Login, Register, Dashboard, Profile, Logout
  */
+import { combineReducers } from 'redux'
 import {
     NavLink_NONE, NavLink_LOGIN, NavLink_REGISTER,
     NavLink_Dashboard, NavLink_PROFILE, NavLink_LOGOUT
@@ -26,4 +27,19 @@ const Active_NavLink = (state = '', action) => {
     }
 }
 
-export default Active_NavLink
+const Active_SideLink = (state = '', action) => {
+    const type = action.type
+    const sidelink = type.substr(0, type.indexOf('_'))
+    if(sidelink === 'SideLink') {
+        return type
+    }else {
+        return state
+    }
+}
+
+const Active_Link = combineReducers({
+    Active_NavLink,
+    Active_SideLink
+})
+
+export default Active_Link
