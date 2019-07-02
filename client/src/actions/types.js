@@ -50,3 +50,4 @@ export const Tasks_COMPLETED = 'Tasks_COMPLETED'
 
 export const Bind_TASK = 'Bind_TASK'
 export const Bind_LIST = 'Bind_LIST'
+export const Bind_TAB_COUNT = 'Bind_TAB_COUNT'

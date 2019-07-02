@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { activate_SidebarLink } from '../../actions/activeTab'
 import { dashboardReq } from '../../actions/dashboard'
 
-const SidebarTab = ({item, Active_SideLink, activate_SidebarLink, dashboardReq}) => {
+const SidebarTab = ({item, Active_SideLink, Tabs_count, activate_SidebarLink, dashboardReq}) => {
     /** Active Sidebar Tab **/
     const active = (Active_SideLink === 'SideLink_'+item.tab_name) ? ' active' : ''
     const reqType = 'Tasks_'+(item.tab_name).toUpperCase()
@@ -24,7 +24,7 @@ const SidebarTab = ({item, Active_SideLink, activate_SidebarLink, dashboardReq})
             <div onClick={onTabClick} className={"side-nav-tab" + active}>
                 <i className="material-icons">{item.tab_icon_name}</i>
                 {item.tab_name}
-                <div className="count">{item.task_count}</div>
+                <div className="count">{Tabs_count[item.tab_name]}</div>
             </div>
         </>
     )
@@ -32,7 +32,8 @@ const SidebarTab = ({item, Active_SideLink, activate_SidebarLink, dashboardReq})
 
 const mapStateToProps = (state) => {
     return {
-        Active_SideLink : state.Active_Link.Active_SideLink
+        Active_SideLink : state.Active_Link.Active_SideLink,
+        Tabs_count : state.Dashboard.tabs
     }
 }
 
