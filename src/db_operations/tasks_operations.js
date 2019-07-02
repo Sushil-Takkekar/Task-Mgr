@@ -21,10 +21,13 @@ const create_task = (task) => {
 }
 
 // get all tasks of a user
-const get_all_tasks = ({ owner, list, status, limit, skip, sortBy }) => {
+const get_all_tasks = ({ owner, list, status, limit, skip, sortBy, till_date }) => {
     return new Promise((resolve, reject) => {
         const filter = { owner };
         const sort = {};
+        if(till_date) {
+            filter.due_date = { $lte : new Date(till_date) }
+        }
         if(list) {
             filter.list = list;
         }

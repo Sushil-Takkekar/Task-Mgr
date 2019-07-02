@@ -23,7 +23,8 @@ router.get('/tasks', auth, (req, res) => {
         status : req.query.completed,
         limit : parseInt(req.query.limit), // used for pagination
         skip : parseInt(req.query.skip), // used for pagination
-        sortBy : req.query.sortBy
+        sortBy : req.query.sortBy,
+        till_date : req.query.till_date
     }
     tasks.get_all_tasks(params).then((data) => {
         res.status(200).send(data);

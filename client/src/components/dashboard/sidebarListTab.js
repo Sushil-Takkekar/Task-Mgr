@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { activate_SidebarLink } from '../../actions/activeTab'
+import { dashboardReq } from '../../actions/dashboard'
 
-const SidebarListTab = ({item, Active_SideLink, activate_SidebarLink}) => {
+const SidebarListTab = ({item, Active_SideLink, activate_SidebarLink, dashboardReq}) => {
     /** Active Sidebar Tab **/
     const active = (Active_SideLink === 'SideLink_'+item.title) ? ' active' : ''
 
     const onTabClick = () => {
-        const actionType = 'SideLink_'+item.title
-        activate_SidebarLink(actionType)
+        activate_SidebarLink('SideLink_'+item.title)
+        dashboardReq('List_'+item._id)
     }
 
     return (
@@ -31,5 +32,6 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    activate_SidebarLink
+    activate_SidebarLink,
+    dashboardReq
 })(SidebarListTab)

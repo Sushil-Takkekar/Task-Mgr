@@ -1,5 +1,5 @@
 import React from 'react'
-import formatDate from '../../utils/formatDate'
+import { formatDashboardDate } from '../../utils/formatDate'
 
 const TaskItem = ({ task }) => {
     return (
@@ -15,7 +15,7 @@ const TaskItem = ({ task }) => {
                     {task.desc}
                 </div>
                 <div className="task-col due-date">
-                    {formatDate(task.due_date)}
+                    {formatDashboardDate(task.due_date)}
                 </div>
                 <i className="material-icons edit-btn">edit</i>
             </div>

@@ -1,7 +1,7 @@
 /**
  * Function to format the date
  */
-const formatDate = (dt) => {
+export const formatDashboardDate = (dt) => {
     const monthNames = [
         "Jan", "Feb", "Mar",
         "Apr", "May", "Jun", 
@@ -20,4 +20,10 @@ const formatDate = (dt) => {
     return day + ' ' + monthNames[monthIndex] + print_year;
 }
 
-export default formatDate
+export const setFilterDate = (date) => {
+    const new_date = new Date(date)
+    new_date.setHours(23)
+    new_date.setMinutes(59)
+    new_date.setSeconds(59)
+    return new_date
+}
