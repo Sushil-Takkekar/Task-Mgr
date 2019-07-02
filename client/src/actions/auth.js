@@ -42,9 +42,10 @@ export const register = (user) => dispatch => {
             password : user.pass1
         }
         create_user(user_obj).then((res) => {
+            console.log(res)
             dispatch({
                 type: Register_SUCCESS,
-                payload: user 
+                payload: res 
             })
             /** Hide Alert **/
             dispatch({

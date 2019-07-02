@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 import { register } from '../../actions/auth'
 import { activate_NavbarLink } from '../../actions/activeTab'
 import { NavLink_REGISTER } from '../../actions/types'
-import axios from './axios';
 
-const Register = ({ activate_NavbarLink, register, Alert }) => {
+const Register = ({ activate_NavbarLink, register, Alert, user_data }) => {
 
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
@@ -18,7 +17,6 @@ const Register = ({ activate_NavbarLink, register, Alert }) => {
     }
 
     /** Component States **/
-    const [fireRedirect, setFireRedirect]= useState(false)
     const registerFormEle = {
         name : '',
         email : '',
@@ -75,7 +73,7 @@ const Register = ({ activate_NavbarLink, register, Alert }) => {
                         </p>
                     </form>
                     
-                    { fireRedirect && <Redirect to="/login" /> }
+                    { (user_data) && <Redirect to="/login" /> }
                 </div>
             </section>
         </>
@@ -84,7 +82,8 @@ const Register = ({ activate_NavbarLink, register, Alert }) => {
 
 const mapStateToProps = (state) => {
     return {
-        Alert : state.Alert
+        Alert : state.Alert,
+        user_data: state.Auth.register.user
     }
 }
 

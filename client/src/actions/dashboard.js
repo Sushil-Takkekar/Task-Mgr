@@ -2,7 +2,7 @@ import { getTasks } from '../axios/task'
 import { get_all_lists } from '../axios/user'
 
 import {
-    LIST_TASK,
+    LIST_TASK, 
     Tasks_ALL, Tasks_TODAY,
     Tasks_WEEKLY, Tasks_COMPLETED,
     Bind_TASK, Bind_LIST, Bind_TAB_COUNT
@@ -53,6 +53,9 @@ export const dashboardReq = (req_type) => async dispatch => {
             dispatch({
                 type: Bind_LIST,
                 payload: lists
+            })
+            dispatch({
+                type: 'SideLink_All'
             })
             /** make api call to get all the tasks **/
             const tasks = await getTasks({})

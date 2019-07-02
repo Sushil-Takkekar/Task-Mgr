@@ -42,8 +42,12 @@ const login = (state = initialState, action) => {
 const register = (state = initialState, action) => {
     switch(action.type) {
         case Register_SUCCESS:
-            return state
+            return {
+                ...state,
+                user: action.payload.user
+            }
         case Register_FAIL:
+            setLocalStorage(false)
             return state
         default:
             return state

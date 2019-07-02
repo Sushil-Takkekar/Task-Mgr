@@ -5,7 +5,7 @@ import { login } from '../../actions/auth'
 import { activate_NavbarLink } from '../../actions/activeTab'
 import { NavLink_LOGIN } from '../../actions/types'
 
-const Login = ({Alert, activate_NavbarLink, login}) => {
+const Login = ({Alert, isLoggedIn, user_data, activate_NavbarLink, login}) => {
 
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
@@ -17,7 +17,6 @@ const Login = ({Alert, activate_NavbarLink, login}) => {
     }
 
     /** Component States **/
-    const [fireRedirect, setFireRedirect]= useState(false)
     const loginFormEle = {
         email : '',
         pass : ''
@@ -71,7 +70,7 @@ const Login = ({Alert, activate_NavbarLink, login}) => {
                         </p>
                     </form>
 
-                    { fireRedirect && <Redirect to="/dashboard" /> }
+                    { (isLoggedIn && user_data) && <Redirect to="/dashboard" /> }
                 </div>
             </section>
         </>
@@ -80,7 +79,9 @@ const Login = ({Alert, activate_NavbarLink, login}) => {
 
 const mapStateToProps = (state) => {
     return {
-        Alert: state.Alert
+        Alert: state.Alert,
+        isLoggedIn: state.Auth.login.isLoggedIn,
+        user_data: state.Auth.login.user
     }
 }
 
