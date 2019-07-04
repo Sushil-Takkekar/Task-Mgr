@@ -3,20 +3,23 @@ import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { activate_NavbarLink } from '../../actions/activeTab'
 import { dashboardReq } from '../../actions/dashboard'
-import Sidebar from './sidebar'
-import TaskContainer from './taskContainer'
+import { setPopupStatus } from '../../actions/popup'
 import { 
     NavLink_Dashboard, LIST_TASK,
-    Tasks_ALL, Tasks_COMPLETED,
-    Tasks_TODAY, Tasks_WEEKLY
+    Popup_RESET
 } from '../../actions/types'
+import Sidebar from './sidebar'
+import TaskContainer from './taskContainer'
+import PopupRoot from './popupRoot'
 
-const Dashboard = ({ isLoggedIn, user_data, activate_NavbarLink, dashboardReq }) => {
+
+const Dashboard = ({ isLoggedIn, user_data, activate_NavbarLink, dashboardReq,setPopupStatus }) => {
 
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
         activate_NavbarLink(NavLink_Dashboard)
         dashboardReq(LIST_TASK)
+        setPopupStatus(Popup_RESET)
     })
 
     return (
@@ -34,6 +37,9 @@ const Dashboard = ({ isLoggedIn, user_data, activate_NavbarLink, dashboardReq })
                             <h2>Can not show the dashboard :( <br />
                             Make sure your device is having a resolution above 900px.</h2>
                         </div>
+
+                        { /* <!-- Add popup logic --> */ }
+                        <PopupRoot />
                     </>
                     :
                     <Redirect to="/" />
@@ -51,5 +57,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     activate_NavbarLink,
-    dashboardReq
+    dashboardReq,
+    setPopupStatus
 })(Dashboard)

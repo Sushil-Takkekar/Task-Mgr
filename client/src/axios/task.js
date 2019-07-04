@@ -37,6 +37,28 @@ const getTasks = ({sortBy = 'completed_asc', list, completed, skip = 0, limit = 
     })
 }
 
+/** make api call to create task **/
+const addTask = ({ title, description, due_date, list}) => {
+    return new Promise(async (resolve, reject) => {
+        const task = {
+            title,
+            description,
+            due_date,
+            list
+        }
+        // set authentication token in header
+        setAuthToken()
+        try {
+            const new_task = await axios.post('/tasks', JSON.stringify(task), req_config)
+            resolve(new_task.data)
+        }catch(err) {
+            reject(err.response)
+        }
+    })
+}
+
+
 export {
-    getTasks
+    getTasks,
+    addTask
 }

@@ -61,7 +61,7 @@ const Sidebar = ({ Lists }) => {
                         }
                     </div>
                     <div className="add-list">
-                        <a href="#"><button className="add-btn">+</button></a>
+                        <a href="#popup-add-list"><button className="add-btn">+</button></a>
                     </div>
                 </div>
             </div>
