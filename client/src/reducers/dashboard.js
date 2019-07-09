@@ -28,10 +28,10 @@ const Dashboard = (state = initialState, action) => {
             return {
                 ...state,
                 tabs: {
-                    All: action.payload.all ? action.payload.all : state.tabs.All,
-                    Today: action.payload.today ? action.payload.today : state.tabs.Today,
-                    Weekly: action.payload.weekly ? action.payload.weekly : state.tabs.Weekly,
-                    Completed: action.payload.completed ? action.payload.completed : state.tabs.Completed,
+                    All: (action.payload.all !== undefined) ? action.payload.all : state.tabs.All,
+                    Today: (action.payload.today !== undefined) ? action.payload.today : state.tabs.Today,
+                    Weekly: (action.payload.weekly !== undefined) ? action.payload.weekly : state.tabs.Weekly,
+                    Completed: (action.payload.completed !== undefined) ? action.payload.completed : state.tabs.Completed,
                 }
             }
         default:

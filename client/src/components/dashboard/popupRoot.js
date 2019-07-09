@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import PopupEditTask from './popupEditTask'
@@ -9,13 +9,13 @@ import {
 
 const PopupRoot = ({ Lists, PopupStatus, popupAction }) => {
 
-    const [taskTitle, setTaskTitle] = useState('')
+    const [listTitle, setListTitle] = useState('')
     const onInputChange = (e) => {
-        setTaskTitle(e.target.value)
+        setListTitle(e.target.value)
     }
 
     const onClick_addList = () => {
-        popupAction(Popup_AddList, taskTitle)
+        popupAction(Popup_AddList, listTitle)
     }
     return (
         <>
@@ -41,13 +41,8 @@ const PopupRoot = ({ Lists, PopupStatus, popupAction }) => {
 
                     {/* <!-- Popup - Add new task --> */}
                     <div id="popup-add-task" className="popup-block popup-overlay">
-                        <PopupEditTask type="Add" Lists={Lists} Task={{}}/>
+                        <PopupEditTask type="Add" Lists={Lists} Task={{}} />
                     </div>
-
-                    {/* <!-- Popup - Update existing task --> */}
-                    {/* <div id="popup-edit-task" className="popup-block popup-overlay">
-                        <PopupEditTask />
-                    </div> */}
                 </>
             }
             

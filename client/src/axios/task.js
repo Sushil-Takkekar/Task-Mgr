@@ -57,8 +57,28 @@ const addTask = ({ title, description, due_date, list}) => {
     })
 }
 
+const updateTask = (task) => {
+    return new Promise(async (resolve, reject) => {
+        const req_data = {
+            title: task.title,
+            description: task.description,
+            completed: task.completed,
+            due_date: task.due_date,
+            list: task.list
+        }
+        // set authentication token in header
+        setAuthToken()
+        try {
+            const new_task = await axios.patch(`/tasks/${task._id}`, JSON.stringify(req_data), req_config)
+            resolve(new_task.data)
+        }catch(err) {
+            reject(err.response)
+        }
+    })
+}
 
 export {
     getTasks,
-    addTask
+    addTask,
+    updateTask
 }

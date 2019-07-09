@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { activate_NavbarLink } from '../../actions/activeTab'
@@ -13,7 +13,7 @@ import TaskContainer from './taskContainer'
 import PopupRoot from './popupRoot'
 
 
-const Dashboard = ({ isLoggedIn, user_data, activate_NavbarLink, dashboardReq,setPopupStatus }) => {
+const Dashboard = ({ isLoggedIn, user_data, Tasks, activate_NavbarLink, dashboardReq, setPopupStatus }) => {
 
     useEffect(() => {
         /** set navbar-active-tab store state on first load **/
@@ -22,6 +22,14 @@ const Dashboard = ({ isLoggedIn, user_data, activate_NavbarLink, dashboardReq,se
         setPopupStatus(Popup_RESET)
     })
 
+    const [clicked_task, Set_Clicked_task] = useState(undefined)
+    /** this function will be called by the edit task button inside 'TaskContainer'. **/
+    const edit_task_clicked = (task) => {
+        Set_Clicked_task(task)
+        console.log('dash ==> '+JSON.stringify(task))
+        //document.getElementById("popup-edit-task").style = "visibility:visible;opacity:1;"
+    }
+
     return (
         <>
             {
@@ -29,7 +37,7 @@ const Dashboard = ({ isLoggedIn, user_data, activate_NavbarLink, dashboardReq,se
                     <>
                         <section className="dashboard-container">
                             <Sidebar />                
-                            <TaskContainer />
+                            <TaskContainer Tasks={Tasks} edit_task_clicked={edit_task_clicked}/>
                         </section>
                         
                         { /* <!-- Resolution Error --> */ }
@@ -39,7 +47,7 @@ const Dashboard = ({ isLoggedIn, user_data, activate_NavbarLink, dashboardReq,se
                         </div>
 
                         { /* <!-- Add popup logic --> */ }
-                        <PopupRoot />
+                        <PopupRoot Task={clicked_task} />
                     </>
                     :
                     <Redirect to="/" />

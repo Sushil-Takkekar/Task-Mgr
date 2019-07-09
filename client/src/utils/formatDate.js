@@ -1,6 +1,11 @@
 /**
  * Function to format the date
  */
+// append 0 to date value if it is a single digit.
+export const appendZero = (val) => {
+    return (val < 10) ? '0'+val : val
+}
+
 export const formatDashboardDate = (dt) => {
     const monthNames = [
         "Jan", "Feb", "Mar",
@@ -10,7 +15,7 @@ export const formatDashboardDate = (dt) => {
     ];
     
     const date = new Date(dt)
-    const day = (date.getDate()<10 ? '0'+date.getDate() : date.getDate());  // if dat value is simgle digit, append 0 to it.
+    const day = appendZero(date.getDate())
     const monthIndex = date.getMonth();
     const year = date.getFullYear();
     
@@ -26,4 +31,12 @@ export const setFilterDate = (date) => {
     new_date.setMinutes(59)
     new_date.setSeconds(59)
     return new_date
+}
+
+export const formatHtmlInputDateType = (date) => {
+    const new_date = new Date(date)
+    const dd = appendZero(new_date.getDate())
+    const mm = appendZero(new_date.getMonth()+1)
+    const yyyy = new_date.getFullYear()
+    return yyyy+'-'+mm+'-'+dd
 }

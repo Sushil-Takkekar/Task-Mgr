@@ -5,7 +5,7 @@ import {
     LIST_TASK, 
     Tasks_ALL, Tasks_TODAY,
     Tasks_WEEKLY, Tasks_COMPLETED,
-    Bind_TASK, Bind_LIST, Bind_TAB_COUNT
+    Bind_TASK, Bind_LIST, Bind_TAB_COUNT, Login_FAIL
 } from './types'
 
 export const dashboardReq = (req_type) => async dispatch => {
@@ -18,7 +18,9 @@ export const dashboardReq = (req_type) => async dispatch => {
                 payload: res
             })
         }).catch((err) => {
-            // code this to redirect to home/login
+            dispatch({
+                type: Login_FAIL
+            })
         })
     }
     else if(req_type === LIST_TASK) {
@@ -94,7 +96,9 @@ export const dashboardReq = (req_type) => async dispatch => {
             })
 
         }catch(err) {
-            // code this
+            dispatch({
+                type: Login_FAIL
+            })
         }
     }
     else if(req_type === Tasks_ALL) {
@@ -103,6 +107,12 @@ export const dashboardReq = (req_type) => async dispatch => {
             dispatch({
                 type: Bind_TASK,
                 payload: res
+            })
+            dispatch({
+                type: Bind_TAB_COUNT,
+                payload: {
+                    all: res.length
+                }
             })
         }).catch((err) => {
             // code this

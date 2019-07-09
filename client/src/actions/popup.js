@@ -1,5 +1,5 @@
 import { add_list } from '../axios/user'
-import { addTask } from '../axios/task'
+import { addTask, updateTask } from '../axios/task'
 import { setFilterDate } from '../utils/formatDate'
 
 import {
@@ -40,6 +40,18 @@ export const popupAction = (req_type, data) => async dispatch => {
         try {
             /** make api call to add task **/
             await addTask(new_task)
+            dispatch({
+                type: Popup_SUCCESS
+            })
+        }catch(err) {
+            dispatch({
+                type: Popup_FAIL
+            })
+        }
+    }else if(req_type === Popup_EditTask) {
+        try {
+            /** make api call to add task **/
+            await updateTask(data)
             dispatch({
                 type: Popup_SUCCESS
             })
