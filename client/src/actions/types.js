@@ -61,5 +61,7 @@ export const Popup_FAIL = 'Popup_FAIL'
 
 export const Popup_AddList = 'Popup_AddList'
 export const Popup_EditList = 'Popup_EditList'
+export const Popup_DeleteList = 'Popup_DeleteList'
 export const Popup_AddTask = 'Popup_AddTask'
 export const Popup_EditTask = 'Popup_EditTask'
+export const Popup_DeleteTask = 'Popup_DeleteTask'

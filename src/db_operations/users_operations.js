@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const sharp = require('sharp');
 const email = require('../email/account');
 
+ObjectId = require('mongodb').ObjectID;
+
 const avatar = {
     res_header : 'image/png',
     width : 250,
@@ -249,6 +251,19 @@ const get_all_lists = (id) => {
     })
 }
 
+const delete_list = (user, list_id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            updated_lists = user.lists.filter(item => item._id != list_id)
+            user.lists = updated_lists;
+            await user.save();  // store upadted user data to db
+            resolve(user);
+        }catch(err) {
+            reject(err)
+        }
+    })
+}
+
 // Verify JWT auth token
 const verifyAuthToken = (token) => {
     try {
@@ -287,7 +302,8 @@ module.exports = {
     add_list,
     update_list,
     update_list_count,
-    get_all_lists
+    get_all_lists,
+    delete_list
 }
 
 /**

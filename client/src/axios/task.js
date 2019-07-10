@@ -77,8 +77,22 @@ const updateTask = (task) => {
     })
 }
 
+const deleteTask = (task_id) => {
+    return new Promise(async (resolve, reject) => {
+        // set authentication token in header
+        setAuthToken()
+        try {
+            const res = await axios.delete(`/tasks/${task_id}`, req_config)
+            resolve(res.data)
+        }catch(err) {
+            reject(err.response)
+        }
+    })
+}
+
 export {
     getTasks,
     addTask,
-    updateTask
+    updateTask,
+    deleteTask
 }

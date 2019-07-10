@@ -76,10 +76,25 @@ const get_all_lists = () => {
     })
 }
 
+/** make api call to create new list **/
+const delete_list = (list_id) => {
+    // set authentication token in header
+    setAuthToken()
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await axios.delete(`/users/list/${list_id}`, req_config)
+            resolve(res.data)
+        }catch(err) {
+            reject(err)
+        }
+    })
+}
+
 export {
     login_user,
     create_user,
     add_list,
     update_list,
-    get_all_lists
+    get_all_lists,
+    delete_list
 }

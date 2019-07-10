@@ -1,10 +1,11 @@
-import { add_list, update_list } from '../axios/user'
-import { addTask, updateTask } from '../axios/task'
+import { add_list, update_list, delete_list } from '../axios/user'
+import { addTask, updateTask, deleteTask } from '../axios/task'
 import { setFilterDate } from '../utils/formatDate'
 
 import {
-    Popup_AddList, Popup_AddTask, Popup_EditTask,
-    Popup_SUCCESS, Popup_FAIL, Popup_RESET, Popup_EditList
+    Popup_AddList, Popup_EditList, Popup_DeleteList,
+    Popup_AddTask, Popup_EditTask, Popup_DeleteTask,
+    Popup_SUCCESS, Popup_FAIL, Popup_RESET
 } from './types'
 
 export const popupAction = (req_type, data) => async dispatch => {
@@ -24,8 +25,20 @@ export const popupAction = (req_type, data) => async dispatch => {
         }
     }else if(req_type === Popup_EditList) {
         try {
-            /** make api call to add task **/
+            /** make api call to edit list **/
             await update_list(data)
+            dispatch({
+                type: Popup_SUCCESS
+            })
+        }catch(err) {
+            dispatch({
+                type: Popup_FAIL
+            })
+        }
+    }else if(req_type === Popup_DeleteList) {
+        try {
+            /** make api call to delete list **/
+            await delete_list(data)
             dispatch({
                 type: Popup_SUCCESS
             })
@@ -65,6 +78,18 @@ export const popupAction = (req_type, data) => async dispatch => {
         try {
             /** make api call to add task **/
             await updateTask(data)
+            dispatch({
+                type: Popup_SUCCESS
+            })
+        }catch(err) {
+            dispatch({
+                type: Popup_FAIL
+            })
+        }
+    }else if(req_type === Popup_DeleteTask) {
+        try {
+            /** make api call to delete task **/
+            await deleteTask(data)
             dispatch({
                 type: Popup_SUCCESS
             })

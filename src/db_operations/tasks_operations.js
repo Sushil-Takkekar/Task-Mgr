@@ -62,9 +62,23 @@ const get_task = (id, owner) => {
 // update single task by id
 const update_task = (id, owner, updates) => {
     return new Promise((resolve, reject) => {
-        task_schema.findOneAndUpdate({ _id: id, owner }, updates, { new: true, runValidators: true}).then((data) => {
+        const new_list = updates.list;
+        task_schema.findOneAndUpdate({ _id: id, owner }, updates, { runValidators: true}).then((data) => {
             if(!data)
                 return resolve({});
+            const pre_list = data.list;
+            // if the list, mapped to task is changed
+            if(new_list !== pre_list) {
+                user.update_list_count(owner, pre_list, -1).then((res) => {
+                    user.update_list_count(owner, new_list, 1).then((res) => {
+                        resolve(data);
+                    }).catch((err) => {
+                        reject({ Error : 'Error in updating list info !' });
+                    });
+                }).catch((err) => {
+                    reject({ Error : 'Error in updating list info !' });
+                });
+            }
             resolve(data);
         }).catch((err) => {
             reject({ Error : 'No such task exists !' });
@@ -78,7 +92,12 @@ const delete_task = (id, owner) => {
         task_schema.findOneAndDelete({ _id : id, owner}).then((data) => {
             if(!data)
                 return resolve({ Error : 'No such task exists !' });
-            resolve({ msg: 'Task deleted sucessfully !' });
+            // decrement list count
+            user.update_list_count(data.owner, data.list, -1).then((updated_list) => {
+                resolve({ msg: 'Task deleted sucessfully !' });
+            }).catch((err) => {
+                reject({ Error : 'No such task exists !' });
+            });
         }).catch((err) => {
             reject({ Error : 'No such task exists !' });
         });

@@ -2,7 +2,7 @@ import React,{ useState } from 'react'
 import { connect } from 'react-redux'
 import TaskItem from './taskItem'
 import { popupAction } from '../../actions/popup'
-import { Popup_EditTask } from '../../actions/types'
+import { Popup_EditTask, Popup_DeleteTask } from '../../actions/types'
 import { formatHtmlInputDateType } from '../../utils/formatDate'
 
 const TaskContainer = ({ Active_SideLink, Tasks, PopupStatus, Lists, popupAction }) => {
@@ -39,6 +39,9 @@ const TaskContainer = ({ Active_SideLink, Tasks, PopupStatus, Lists, popupAction
     }
     const onClick_closePopup = () => {
         document.getElementById("popup-edit-task").style = "visibility:hidden; opacity:0;"
+    }
+    const onClick_deleteBtn = () => {
+        popupAction(Popup_DeleteTask, formData._id)
     }
     const onSubmit_editTask = (e) => {
         e.preventDefault()
@@ -92,6 +95,7 @@ const TaskContainer = ({ Active_SideLink, Tasks, PopupStatus, Lists, popupAction
                                 </select>
                                 <input type="submit" className="btn submit-task-btn" value="Update" />
                             </form>
+                            <button className="btn" onClick={onClick_deleteBtn}>Delete</button>
                         </div>
                     </div>
                 </div>

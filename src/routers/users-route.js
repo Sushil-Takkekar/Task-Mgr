@@ -141,4 +141,15 @@ router.get('/users/lists', auth, async(req, res) => {
     }
 });
 
+
+// delete list
+router.delete('/users/list/:id', auth, async (req, res) => {
+    try {
+        const data = await users.delete_list(req.user, req.params.id);
+        res.status(200).send(data);
+    }catch(err) {
+        res.status(500).send(err);
+    }
+});
+
 module.exports = router;

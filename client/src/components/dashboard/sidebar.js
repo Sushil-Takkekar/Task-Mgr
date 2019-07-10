@@ -4,7 +4,7 @@ import SidebarTab from './sidebarTab'
 import SidebarListTab from './sidebarListTab'
 import { popupAction } from '../../actions/popup'
 import {
-    Popup_EditList
+    Popup_EditList, Popup_DeleteList
 } from '../../actions/types'
 
 const Sidebar = ({ Lists, PopupStatus, popupAction }) => {
@@ -52,6 +52,9 @@ const Sidebar = ({ Lists, PopupStatus, popupAction }) => {
     const onClick_updateBtn = () => {
         popupAction(Popup_EditList, clickedList)
     }
+    const onClick_deleteBtn = () => {
+        popupAction(Popup_DeleteList, clickedList._id)
+    }
     return (
         <>
             <div className="side-nav">
@@ -95,6 +98,7 @@ const Sidebar = ({ Lists, PopupStatus, popupAction }) => {
                             <div className="content">
                                 <input type="text" placeholder="List name" value={clickedList.title} onChange={onInputChange}/>
                                 <button className="btn" onClick={onClick_updateBtn}>Update</button>
+                                <button className="btn" onClick={onClick_deleteBtn}>Delete</button>
                                 { (PopupStatus === 'FAIL') &&
                                     <div className="popup-error">
                                         Something went wrong !
