@@ -5,6 +5,7 @@ import { popupAction } from '../../actions/popup'
 import { Popup_EditTask } from '../../actions/types'
 
 const TaskItem = ({ task, edit_task, popupAction }) => {
+    const task_status = task.completed ? ' disabled-task' : ''
     const onClickTaskCompleted = (e) => {
         const task_status = task.completed ? false : true
         popupAction(Popup_EditTask, {...task, completed: task_status})
@@ -14,7 +15,7 @@ const TaskItem = ({ task, edit_task, popupAction }) => {
     }
     return (
         <>
-            <div className="task-item">
+            <div className={"task-item"+task_status}>
                 <div className="task-col status">
                     <input type="checkbox" defaultChecked={task.completed} onChange={onClickTaskCompleted}/>
                 </div>

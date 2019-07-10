@@ -213,7 +213,19 @@ const add_list = (id, list) => {
     })
 }
 
-// update list count
+// upadte list title
+const update_list = (user_id, list_id, list) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const updated_list = await user_model_schema.findOneAndUpdate({ '_id': user_id, 'lists._id': list_id }, { 'lists.$.title': list.title }, {new: true} );
+            resolve(updated_list.lists.filter(item => item._id == list_id))
+        }catch(err) {
+            reject(err)
+        }
+    })
+}
+
+// update list count (called inside task_operations)
 const update_list_count = (user_id, list_id, val) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -273,6 +285,7 @@ module.exports = {
     login_user,
     logout_user,
     add_list,
+    update_list,
     update_list_count,
     get_all_lists
 }

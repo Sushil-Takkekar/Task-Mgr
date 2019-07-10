@@ -51,6 +51,12 @@ const TaskContainer = ({ Active_SideLink, Tasks, PopupStatus, Lists, popupAction
                     {tasks_category}
                 </div>
                 {
+                    (Tasks.length <= 0) ?
+                    <div className="no-task">
+                        <h2>No tasks to show !</h2>
+                        <h3>Click on bottom right button to add one.</h3>
+                    </div>
+                    :
                     Tasks.map((item, index) => {
                         const task = {
                             _id: item._id,

@@ -121,6 +121,16 @@ router.post('/users/list', auth, async (req, res) => {
     }
 });
 
+// update list
+router.patch('/users/list/:id', auth, async (req, res) => {
+    try {
+        const data = await users.update_list(req.user._id, req.params.id, req.body);
+        res.status(200).send(data);
+    }catch(err) {
+        res.status(500).send(err);
+    }
+});
+
 // get all lists
 router.get('/users/lists', auth, async(req, res) => {
     try {
