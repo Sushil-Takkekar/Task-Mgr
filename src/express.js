@@ -4,6 +4,7 @@
  */
 
 const express = require('express');
+const path  = require('path');
 require('./db/mongoose'); // establish the db connection
 const user_route = require('./routers/users-route');
 const task_route = require('./routers/tasks-route');
@@ -25,5 +26,16 @@ app.use(express.json());
 
 app.use(user_route);
 app.use(task_route);
+
+// Serve static assets in production (NODE_ENV var is set to 'production' automatically after deploying on cloud)
+if(process.env.NODE_ENV === 'production') {
+    // set static folder
+    app.use(express.static(path.join(__dirname, '../client/build')));
+
+    // for non-existing route
+    app.use('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
+    })
+}
 
 module.exports = app;
