@@ -3,22 +3,26 @@ import { addTask, updateTask, deleteTask } from '../axios/task'
 import { setFilterDate } from '../utils/formatDate'
 
 import {
+    Loader_SHOW, Loader_HIDE,
     Popup_AddList, Popup_EditList, Popup_DeleteList,
     Popup_AddTask, Popup_EditTask, Popup_DeleteTask,
     Popup_SUCCESS, Popup_FAIL, Popup_RESET
 } from './types'
 
 export const popupAction = (req_type, data) => async dispatch => {
+    dispatch({ type: Loader_SHOW })
     if(req_type === Popup_AddList) {
         try {
             /** make api call to add list **/
             await add_list({
                 title: data
             })
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_SUCCESS
             })
         }catch(err) {
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_FAIL
             })
@@ -27,10 +31,12 @@ export const popupAction = (req_type, data) => async dispatch => {
         try {
             /** make api call to edit list **/
             await update_list(data)
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_SUCCESS
             })
         }catch(err) {
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_FAIL
             })
@@ -39,10 +45,12 @@ export const popupAction = (req_type, data) => async dispatch => {
         try {
             /** make api call to delete list **/
             await delete_list(data)
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_SUCCESS
             })
         }catch(err) {
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_FAIL
             })
@@ -66,10 +74,12 @@ export const popupAction = (req_type, data) => async dispatch => {
         try {
             /** make api call to add task **/
             await addTask(new_task)
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_SUCCESS
             })
         }catch(err) {
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_FAIL
             })
@@ -78,10 +88,12 @@ export const popupAction = (req_type, data) => async dispatch => {
         try {
             /** make api call to add task **/
             await updateTask(data)
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_SUCCESS
             })
         }catch(err) {
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_FAIL
             })
@@ -90,10 +102,12 @@ export const popupAction = (req_type, data) => async dispatch => {
         try {
             /** make api call to delete task **/
             await deleteTask(data)
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_SUCCESS
             })
         }catch(err) {
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Popup_FAIL
             })

@@ -1,5 +1,6 @@
 import { login_user, create_user } from '../axios/user'
 import { 
+    Loader_SHOW, Loader_HIDE,
     Login_SUCCESS, Login_FAIL, Logout_USER,
     Register_SUCCESS, Register_FAIL,
     Alert_SHOW, Alert_HIDE 
@@ -10,7 +11,10 @@ import {
  * Set action based on API call response.
  */
 export const login = (user) => dispatch => {
+    dispatch({ type: Loader_SHOW })
+
     login_user(user).then((res) => {
+        dispatch({ type: Loader_HIDE })
         dispatch({
             type: Login_SUCCESS,
             payload: res
@@ -20,6 +24,7 @@ export const login = (user) => dispatch => {
             type: Alert_HIDE
         })
     }).catch((err) => {
+        dispatch({ type: Loader_HIDE })
         dispatch({
             type: Login_FAIL
         })
@@ -35,6 +40,7 @@ export const login = (user) => dispatch => {
  * Set action based on API call response.
  */
 export const register = (user) => dispatch => {
+    dispatch({ type: Loader_SHOW })
     if(user.pass1 === user.pass2) {
         const user_obj = {
             name: user.name,
@@ -42,7 +48,7 @@ export const register = (user) => dispatch => {
             password : user.pass1
         }
         create_user(user_obj).then((res) => {
-            console.log(res)
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Register_SUCCESS,
                 payload: res 
@@ -52,6 +58,7 @@ export const register = (user) => dispatch => {
                 type: Alert_HIDE
             })
         }).catch((err) => {
+            dispatch({ type: Loader_HIDE })
             dispatch({
                 type: Register_FAIL, 
             })

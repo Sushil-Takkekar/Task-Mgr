@@ -18,15 +18,15 @@ function App() {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <Switch>
-          <Route path="/" exact component={Landing} />
-          <Route path="/register" exact component={Register} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/dashboard" exact component={Dashboard} />
-          <Route path="/profile" exact component={Profile} />
-          <Route path="/logout" exact component={Logout} />
-          <Route component={NotFound} />
-        </Switch>
+          <Switch>
+            <Route path="/" exact component={Landing} />
+            <Route path="/register" exact component={Register} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/dashboard" exact component={Dashboard} />
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/logout" exact component={Logout} />
+            <Route component={NotFound} />
+          </Switch>
       </Router>
     </Provider>
   );

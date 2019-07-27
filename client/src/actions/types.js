@@ -5,6 +5,12 @@ export const Alert_SHOW = 'Alert_SHOW'
 export const Alert_HIDE = 'Alert_HIDE'
 
 /**
+ * Loader
+ */
+export const Loader_SHOW = 'Loader_SHOW'
+export const Loader_HIDE = 'Loader_HIDE'
+
+/**
  * Active Tabs : Navbar
  * These vars are used to pass the type of action during dispatch only.
  * It means dispatching a dynamic action

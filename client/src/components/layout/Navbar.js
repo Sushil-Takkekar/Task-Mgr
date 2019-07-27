@@ -2,7 +2,9 @@ import React,{ useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ Active_NavLink, isLoggedIn, user_data }) => {
+const Navbar = ({ Active_NavLink, isLoggedIn, user_data, Loader }) => {
+    const loader_visibility = Loader ? 'visible':'hidden'
+
     return (
         <>
             <nav className="navbar bg-dark">
@@ -39,6 +41,9 @@ const Navbar = ({ Active_NavLink, isLoggedIn, user_data }) => {
 
                 }
             </nav>
+
+            {/* add loader */}
+            <div className="loader" style={{visibility: loader_visibility}}></div>
         </>
     )
 }
@@ -48,7 +53,8 @@ const mapStateToProps = (state) => {
     return {
         Active_NavLink : (state.Active_Link.Active_NavLink).toLowerCase(),
         isLoggedIn: state.Auth.login.isLoggedIn,
-        user_data: state.Auth.login.user
+        user_data: state.Auth.login.user,
+        Loader: state.Loader
     }
 }
 
