@@ -18,7 +18,7 @@ const Navbar = ({ Active_NavLink, isLoggedIn, user_data }) => {
                                 <li><Link to="/dashboard" className={(Active_NavLink === 'dashboard') ? 'active-link' : ''}>Dashboard</Link></li>
                                 <li>
                                     <span className="hide-sm">|</span>  {/* <!-- This is verticle separator--> */}
-                                    <Link to="/profile">
+                                    <Link to="/profile" className={(Active_NavLink === 'profile') ? 'active-link' : ''}>
                                         <i className="material-icons">account_circle</i>
                                         <span className="hide-sm">Profile</span>
                                     </Link>
