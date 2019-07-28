@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { activate_NavbarLink } from '../../actions/activeTab'
 import { dashboardReq } from '../../actions/dashboard'

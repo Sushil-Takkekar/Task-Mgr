@@ -1,7 +1,7 @@
 import { login_user, create_user } from '../axios/user'
 import { 
     Loader_SHOW, Loader_HIDE,
-    Login_SUCCESS, Login_FAIL, Logout_USER,
+    Login_SUCCESS, Login_FAIL,
     Register_SUCCESS, Register_FAIL,
     Alert_SHOW, Alert_HIDE 
 } from './types'

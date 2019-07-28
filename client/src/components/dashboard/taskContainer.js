@@ -85,7 +85,7 @@ const TaskContainer = ({ Active_SideLink, Tasks, PopupStatus, Lists, popupAction
                                 <input type="text" placeholder="Title" name="title" value={title} onChange={onInputChange} />
                                 <textarea rows="3" cols="10" placeholder="Description" name="description" value={description} onChange={onInputChange}></textarea>
                                 <input type="date" placeholder="Due date" name="due_date" onChange={onInputChange} value={due_date}/>
-                                <select name="list" name="list" onChange={onInputChange} value={list}>
+                                <select name="list" onChange={onInputChange} value={list}>
                                     <option value="none">None</option>
                                     {
                                         Lists.map(item => {

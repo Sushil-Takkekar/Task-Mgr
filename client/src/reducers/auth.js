@@ -1,6 +1,6 @@
 import { combineReducers } from  'redux'
 import { 
-    Login_SUCCESS, Login_FAIL, Logout_USER,
+    Login_SUCCESS, Login_FAIL,
     Register_SUCCESS, Register_FAIL
 } from '../actions/types'
 

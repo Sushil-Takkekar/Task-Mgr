@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { popupAction } from '../../actions/popup'
 import { Popup_AddTask } from '../../actions/types'
@@ -16,38 +16,9 @@ const PopupEditTask = ({ type, Lists, currTask, popupAction }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const task_obj = {
-        _id: '',
-        title: '',
-        description: '',
-        due_date: new Date(),
-        list: ''
-    }
-    const [Task, setTask] = useState(task_obj)
-    useEffect(() => {
-        if(currTask !== undefined) {
-            console.log(currTask._id)
-            setTask({
-                ...Task,
-                _id : currTask._id,
-                title: currTask.title,
-                description: currTask.description,
-                due_date: currTask.due_date,
-                list: currTask.list
-            })
-            console.log(Task._id)
-        }
-    },[currTask])
-
-    const onClick_closePopup = () => {
-        document.getElementById("popup-edit-task").style = "visibility:hidden; opacity:0;"
-    }
     const onSubmit_addTask = (e) => {
         e.preventDefault()
         popupAction(Popup_AddTask, formData)
-    }
-    const onSubmit_editTask = () => {
-
     }
 
     return (

@@ -1,5 +1,4 @@
 import { Bind_TASK, Bind_LIST, Bind_TAB_COUNT } from '../actions/types'
-import { dashboard } from '../actions/dashboard';
 
 const initialState = {
     tabs : {
